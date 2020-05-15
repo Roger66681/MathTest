@@ -1,0 +1,111 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Timers;
+using System.Diagnostics;
+using System.Windows;
+using System.Collections.Generic;
+
+namespace MathTest2
+{
+    public class QuestionsAndAnswers
+    {
+        public string Question{get; set; }
+        public int Answer{get; set; }
+        public int Score{get; set; }
+    }
+    
+    public class QuizDisplay
+    {
+    	static void Main()
+        {
+              QuizDisplay QD = new QuizDisplay();
+              QuestionsAndAnswers QA = new QuestionsAndAnswers();
+              Console.Clear();
+              System.Console.WriteLine("Hello and Welcome To MathTest2.0!!!");
+              System.Console.WriteLine("Type '-1000' to exit anytime...");
+              System.Console.WriteLine("Press Enter To Continue...");
+              Console.ReadLine();
+              Console.Clear();
+              QD.QA();
+        	
+        }
+        public void QA()
+        {
+            List<QuestionsAndAnswers> QandA = new List<QuestionsAndAnswers>();
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is ten plus two?", Answer = 12, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is four times twenty?", Answer = 80, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "what is a hundred times twelve?", Answer = 1200, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "what is five hundred times twenty?", Answer = 10000, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "what is one hundred eighty seven times sixty divided by 2?", Answer = 5610, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is one hundred twenty times four?", Answer = 480, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "Divide five hundred from ten thousand.", Answer = 20, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is fifty times sixty?", Answer = 3000, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is five times five?", Answer = 25, Score = 10});
+            QandA.Add(new QuestionsAndAnswers() { Question = "What is six times six?", Answer = 36, Score = 10});
+            
+            foreach (QuestionsAndAnswers question in QandA)
+            {
+                bool quit = false; //used to exit the foreach loop
+                int response = -1; //used to start the "while" loop
+                int quitNumber = -1000; //Used to exit the foreach loop with response on same line
+				
+                while (response != question.Answer)
+                {
+                    //Console.Clear();
+                    Console.WriteLine(question.Question);
+                    
+                    if (!int.TryParse(Console.ReadLine(), out response)) //returns false if the user doesn't enter a number
+                    {
+                    	Console.Clear();
+                        Console.WriteLine("Please enter a valid number.");
+                        Console.WriteLine("Press Enter To Continue...");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else if (response == quitNumber)
+                    {
+                        quit = true;
+                        break; //this exits the "while" loop
+                    }
+                    else if (response != question.Answer) //user provided a number, but it's wrong
+                    {
+                    	Console.Clear();
+                        Console.WriteLine("Incorrect answer, please try again.");
+                        question.Score -= 1;
+                        Console.WriteLine($"Score is now {question.Score}");
+                        Console.WriteLine("Press Enter To Continue...");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else //user provided the correct answer
+                    {
+                    	Console.Clear();
+                        Console.WriteLine("Correct!");
+			Console.WriteLine("Press Enter To Continue...");
+                        Console.ReadLine();
+                    }
+					
+                }
+                
+                if (quit)
+                {
+                    break; //this exits the "foreach" loop
+                }
+                
+                Console.Clear();
+             
+            }
+            
+            Console.WriteLine("THANKS FOR PLAYING!!!");
+            Console.WriteLine("Press Enter To Quit...");
+            Console.ReadLine();
+            Console.Clear();
+			       
+			        	
+			       	
+        }   
+       
+    }
+
+}
